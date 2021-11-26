@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 API Examples
+
+  .row
+    .col-md-4
+      a(href='/api/facebook', style='color: #fff')
+        .card(style='background-color: #3b5998').mb-3
+          .card-body
+            img(src='https://i.imgur.com/jiztYCH.png', height=40)
+            |  Facebook
+    .col-md-4
+      a(href='/api/instagram', style='color: #fff')
+        .card(style='background-color: #947563').mb-3
+          .card-body
+            img(src='https://i.imgur.com/aRc6LUJ.png', height=40)
+            |  Instagram
+    .col-md-4
+      a(href='/api/upload', style='color: #1565c0')
+        .card(style='background-color: #fff').mb-3
+          .card-body
+            img(src='https://i.imgur.com/UPTzIdC.png', height=40)
+            |  File Upload
+    .col-md-4
+      a(href='/api/google-maps', style='color: #fff')
+        .card(style='background-color: #20a360').mb-3
+          .card-body
+            img(src='https://i.imgur.com/Er2ZqgZ.png', height=40)
+            |  Google Maps
+    .col-md-4
+      a(href='/api/google/drive', style='color: #000')
+        .card(style='background-color: #FFFFFF').mb-3
+          .card-body
+            img(src='https://www.gstatic.com/images/branding/product/1x/drive_48dp.png', height=40)
+            |  Google Drive
+    .col-md-4
+      a(href='/api/google/sheets', style='color: #000')
+        .card(style='background-color: #f5f5f5').mb-3
+          .card-body
+            img(src='https://www.gstatic.com/images/icons/material/product/1x/sheets_64dp.png', height=40)
+            |  Google Sheets

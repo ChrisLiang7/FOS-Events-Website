@@ -1,0 +1,42 @@
+.navbar.navbar-light.fixed-top.navbar-expand-lg
+  .container-fluid
+    a.navbar-brand(href='/')
+      i.fas.fa-cube
+      | DEANZA海外留学生
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+      span.sr-only Toggle navigation
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.nav-item(class=(title === 'Home') ? 'active' : undefined)
+          a.nav-link(href='/') 主页
+        li.nav-item(class=(title === 'API Examples') ? 'active' : undefined)
+          a.nav-link(href='/api') 活动
+        li.nav-item(class=(title === 'Contact') ? 'active' : undefined)
+          a.nav-link(href='/contact') 活动注册
+        //- only allow for admins
+        if user && user.role === 'admin'
+          li.nav-item(class=(title === 'Status') ? 'active' : undefined)
+            a.nav-link(href='/status') 服务器状态
+          li.nav-item(class=(title === 'AdminPanel') ? 'active' : undefined)
+            a.nav-link(href='/admin') 后台管理
+      ul.nav.navbar-nav.ml-auto
+        if !user
+          li.nav-item(class=(title === 'Login') ? 'active' : undefined)
+            a.nav-link(href='/login') 登陆
+          li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
+            a.nav-link(href='/signup') 注册
+        else
+          li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+            a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
+              if user.profile.picture
+                img(src=user.profile.picture)
+              else
+                img(src=user.gravatar(60))
+              span= user.profile.name || user.email || user.id
+              i.caret
+            div.dropdown-menu
+              a.dropdown-item(href='/account') 我的账号
+              div.dropdown-divider
+              a.dropdown-item(href='/logout') 登出
+

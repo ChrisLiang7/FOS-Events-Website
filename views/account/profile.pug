@@ -1,0 +1,138 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 用户信息
+
+  form(action='/account/profile', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') 邮箱
+      .col-md-7
+        input.form-control(type='email', name='email', id='email', value=user.email, autocomplete='email', required)
+      .offset-sm-3.col-md-7.pl-3
+        if user.emailVerified
+          .text-success.font-italic
+            | 已验证
+        else
+          .text-danger.font-italic
+            | 未验证: &nbsp;
+            a(href='/account/verify') 发送验证邮件
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') 用户名
+      .col-md-7
+        input.form-control(type='text', name='name', id='name', value=user.profile.name, autocomplete='name')
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right 性别
+      .col-sm-6
+        .form-check.form-check-inline
+          input(type='radio', class='form-check-input' checked=user.profile.gender == 'male', name='gender', value='male', data-toggle='radio')
+          label.form-check-label 男
+
+        .form-check.form-check-inline
+          input(type='radio', class='form-check-input' checked=user.profile.gender == 'female', name='gender', value='female', data-toggle='radio')
+          label.form-check-label 女
+
+        .form-check.form-check-inline
+          input(type='radio', class='form-check-input' checked=user.profile.gender == 'other', name='gender', value='other', data-toggle='radio')
+          label.form-check-label 其他
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='location') 住址
+      .col-md-7
+        input.form-control(type='text', name='location', id='location', value=user.profile.location, autocomplete)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='website') 个人网站
+      .col-md-7
+        input.form-control(type='text', name='website', id='website', value=user.profile.website, autocomplete='url')
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right 头像
+      .col-sm-4
+        img(src=user.gravatar(), class='profile', width='100', height='100')
+    .form-group
+      .offset-sm-3.col-md-7.pl-2
+        button.btn.btn.btn-primary(type='submit')
+          i.fas.fa-pencil-alt.fa-sm
+          | 更新用户信息
+
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 更改密码
+
+  form(action='/account/password', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') 新密码
+      .col-md-7
+        input.form-control(type='password', name='password', id='password', autocomplete='new-password', minlength='8', required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') 确认新密码
+      .col-md-7
+        input.form-control(type='password', name='confirmPassword', id='confirmPassword', autocomplete='new-password', minlength='8', required)
+    .form-group
+      .offset-sm-3.col-md-7.pl-2
+        button.btn.btn-primary(type='submit')
+          i.fas.fa-lock.fa-sm
+          | 确认更改
+
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 注销账户
+
+  form(action='/account/delete', method='POST', onsubmit="return confirm('Are you sure you want to delete your account?');")
+    .form-group
+      p.offset-sm-3.col-md-7.pl-2 你可以删除你的帐户，但是请记住此操作是不可逆转的。
+      input(type='hidden', name='_csrf', value=_csrf)
+      .offset-sm-3.col-md-7.pl-2
+        button.btn.btn-danger(type='submit')
+          i.fas.fa-trash-alt.fa-sm
+          | 注销我的账户
+
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 链接账号
+  .form-group
+    .offset-sm-3.col-md-7.pl-2
+      if user.instagram
+        p.mb-1: a.text-danger(href='/account/unlink/instagram') 断开instgram账户的链接
+      else
+        p.mb-1: a(href='/auth/instagram') 链接instgram账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.google
+        p.mb-1: a.text-danger(href='/account/unlink/google') 断开谷歌账户的链接
+      else
+        p.mb-1: a(href='/auth/google') 链接谷歌账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.facebook
+        p.mb-1: a.text-danger(href='/account/unlink/facebook') 断开Facebook账户的链接
+      else
+        p.mb-1: a(href='/auth/facebook') 链接Facebook账号
+      if user.snapchat
+        p.mb-1: a.text-danger(href='/account/unlink/snapchat') 断开Snapchat账户的链接
+        p.mb-1: a(href='/auth/snapchat') 链接Snapchat账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.twitter
+        p.mb-1: a.text-danger(href='/account/unlink/twitter') 断开推特账户的链接
+      else
+        p.mb-1: a(href='/auth/twitter') 链接推特账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.github
+        p.mb-1: a.text-danger(href='/account/unlink/github') 断开Github账户的链接
+      else
+        p.mb-1: a(href='/auth/github') 链接Github账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.linkedin
+        p.mb-1: a.text-danger(href='/account/unlink/linkedin') 断开LinkedIn账户的链接
+      else
+        p.mb-1: a(href='/auth/linkedin') 链接LinkedIn账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.steam
+        p.mb-1: a.text-danger(href='/account/unlink/steam') 断开Steam账户的链接
+      else
+        p.mb-1: a(href='/auth/steam') 链接Steam账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.twitch
+        p.mb-1: a.text-danger(href='/account/unlink/twitch') 断开Twitch账户的链接
+      else
+        p.mb-1: a(href='/auth/twitch') 链接Twitch账号
+    .offset-sm-3.col-md-7.pl-2
+      if user.quickbooks
+        p.mb-1: a.text-danger(href='/account/unlink/quickbooks') 断开QuickBooks账户的链接
+      else
+        p.mb-1: a(href='/auth/quickbooks') 链接QuickBooks账号
