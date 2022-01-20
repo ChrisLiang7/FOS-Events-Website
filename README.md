@@ -1,4 +1,4 @@
-# official site for Fellowship of Oversea Students club
+# Official Site for Fellowship of Oversea Students club
 
 Prep: Mongodb, nodejs  
 Installation：npm install  
