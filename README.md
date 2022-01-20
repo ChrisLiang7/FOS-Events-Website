@@ -1,6 +1,6 @@
-# 学生团契官网
+# official site for Fellowship of Oversea Students club
 
 Prep: Mongodb, nodejs  
-安装：npm install  
-开始程序：npm start  
-本地测试：localhost:8080  
+Installation：npm install  
+run：npm start  
+local test：localhost:8080  
